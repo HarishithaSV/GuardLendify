@@ -170,39 +170,35 @@ public class Trade {
 
 Trader.java
 import package2.*;
-public class Trader {
-    private String name;
-    private double cashBalance;
-    private Portfolio portfolio;
+package package2;
 
-    public Trader(String name, double cashBalance) {
+public class User {
+    private String name;
+
+    public User(String name) {
         this.name = name;
-        this.cashBalance = cashBalance;
-        this.portfolio = new Portfolio();
     }
 
-    public void buyStock(Market market, String symbol, int quantity) {
-        Stock stock = market.getStock(symbol);
-        if (stock != null) {
-            double totalPrice = stock.getPrice() * quantity;
-            if (cashBalance >= totalPrice) {
-                cashBalance -= totalPrice;
-                Trade trade = new Trade(stock, quantity);
-                portfolio.addTrade(trade);
-                System.out.println("Bought " + quantity + " shares of " + symbol + " for $" + totalPrice);
+    public void verifyDLA(DLARegistry registry, String name) {
+        DLA dla = registry.getDLA(name);
+        if (dla != null) {
+            if (dla.isVerified()) {
+                System.out.println("DLA " + name + " is verified.");
             } else {
-                System.out.println("Insufficient funds to buy " + quantity + " shares of " + symbol);
+                System.out.println("DLA " + name + " is not verified.");
             }
         } else {
-            System.out.println("Stock " + symbol + " not found in the market");
+            System.out.println("DLA " + name + " not found in the registry.");
         }
     }
 
-    public Portfolio getPortfolio() {
-        return portfolio;
-    }
-
-    public double getCashBalance() {
-        return cashBalance;
+    public void reportFraud(DLARegistry registry, String name) {
+        DLA dla = registry.getDLA(name);
+        if (dla != null) {
+            dla.reportFraud();
+            System.out.println("Fraud reported for DLA " + name + ".");
+        } else {
+            System.out.println("DLA " + name + " not found in the registry.");
+        }
     }
 }
