@@ -1,34 +1,26 @@
 
 package package2;
 
-public class Main{
+package package2;
+
+public class Main {
     public static void main(String[] args) {
-        Market market = new Market();
-        Trader trader = new Trader("John Doe", 10000);
+        DLARegistry registry = new DLARegistry();
+        User user = new User("Jane Doe");
 
-        market.addStock(new Stock("AAPL", 150));
-        market.addStock(new Stock("GOOGL", 2800));
-        market.addStock(new Stock("MSFT", 300));
+        registry.addDLA(new DLA("LoanQuick", true));
+        registry.addDLA(new DLA("CashNow", false));
+        registry.addDLA(new DLA("FastFunds", true));
 
-        market.displayMarketData();
+        registry.displayDLAs();
 
-        trader.buyStock(market, "AAPL", 20);
-        trader.buyStock(market, "GOOGL", 2);
+        user.verifyDLA(registry, "LoanQuick");
+        user.reportFraud(registry, "CashNow");
 
-        trader.getPortfolio().displayPortfolio();
-
-        market.updateStockPrice("AAPL", 160);
-        market.updateStockPrice("GOOGL", 2900);
-
-        // Display updated market data
-        market.displayMarketData();
-
-        // Display updated portfolio value
-        trader.getPortfolio().displayPortfolio();
+        registry.displayDLAs();
     }
-
-
 }
+
 Market.java
 import package2.*;
 import java.util.HashMap;
