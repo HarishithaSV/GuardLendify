@@ -107,32 +107,41 @@ public class Portfolio {
 Stock.java
 import package2.*;
 
-public class Stock {
-    private String symbol;
-    private double price;
+package package2;
 
-    public Stock(String symbol, double price) {
-        this.symbol = symbol;
-        this.price = price;
+public class DLA {
+    private String name;
+    private boolean isVerified;
+    private int fraudReports;
+
+    public DLA(String name, boolean isVerified) {
+        this.name = name;
+        this.isVerified = isVerified;
+        this.fraudReports = 0;
     }
 
-    public String getSymbol() {
-        return symbol;
+    public String getName() {
+        return name;
     }
 
-    public double getPrice() {
-        return price;
+    public boolean isVerified() {
+        return isVerified;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public int getFraudReports() {
+        return fraudReports;
+    }
+
+    public void reportFraud() {
+        this.fraudReports++;
     }
 
     @Override
     public String toString() {
-        return "Stock: " + symbol + " | Price: $" + price;
+        return "DLA: " + name + " | Verified: " + isVerified + " | Fraud Reports: " + fraudReports;
     }
 }
+
 
 Trade.java
 import package2.*;
