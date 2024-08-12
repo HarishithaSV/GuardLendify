@@ -33,35 +33,34 @@ Market.java
 import package2.*;
 import java.util.HashMap;
 
-public class Market {
-    private HashMap<String, Stock> stocks;
+package package2;
 
-    public Market() {
-        this.stocks = new HashMap<>();
+import java.util.HashMap;
+
+public class DLARegistry {
+    private HashMap<String, DLA> dlas;
+
+    public DLARegistry() {
+        this.dlas = new HashMap<>();
     }
 
-    public void addStock(Stock stock) {
-        stocks.put(stock.getSymbol(), stock);
+    public void addDLA(DLA dla) {
+        dlas.put(dla.getName(), dla);
     }
 
-    public void updateStockPrice(String symbol, double newPrice) {
-        if (stocks.containsKey(symbol)) {
-            stocks.get(symbol).setPrice(newPrice);
-        }
+    public DLA getDLA(String name) {
+        return dlas.get(name);
     }
 
-    public Stock getStock(String symbol) {
-        return stocks.get(symbol);
-    }
-
-    public void displayMarketData() {
-        System.out.println("Market Data:");
-        for (Stock stock : stocks.values()) {
-            System.out.println(stock);
+    public void displayDLAs() {
+        System.out.println("DLA Registry:");
+        for (DLA dla : dlas.values()) {
+            System.out.println(dla);
         }
         System.out.println();
     }
 }
+
 
 Portfolio.java
 import package2.*;
