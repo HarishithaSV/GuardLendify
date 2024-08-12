@@ -157,7 +157,7 @@ public class Trade {
     }
 }
 
-Trader.java
+User.java
 import package2.*;
 package package2;
 
