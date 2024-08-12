@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GuardLendify - DLA Anti-Fraud Verification System</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f2f2f7, #ffffff);
+            color: #333;
+        }
+
+        header {
+            background: #007aff;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: background-color 0.3s, transform 0.3s;
+            font-size: 1em;
+        }
+
+        nav ul li a:hover {
+            background-color: #0051a2;
+            transform: scale(1.05);
+        }
+
+        .page {
+            display: none;
+            padding: 40px 20px;
+            margin: 20px auto;
+            max-width: 960px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s, transform 0.3s;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .page:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transform: translateY(-5px);
+        }
+
+        h2 {
+            color: #007aff;
+            border-bottom: 3px solid #007aff;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 2em;
+            font-weight: 600;
+        }
+
+        input, textarea {
+            width: calc(100% - 24px);
+            padding: 15px;
+            margin: 12px 0;
+            border-radius: 8px;
+            border: 1px solid #dcdcdc;
+            box-sizing: border-box;
+            font-size: 1em;
+            background-color: #f9f9f9;
+            transition: border-color 0.3s, background-color 0.3s;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #007aff;
+            background-color: #fff;
+            outline: none;
+        }
+
+        button {
+            background: linear-gradient(90deg, #007aff, #0051a2);
+            color: #fff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 500;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background-color: #0051a2;
+            transform: scale(1.05);
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: #333;
+            color: #fff;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            font-size: 0.9em;
+        }
+
+        .verified {
+            color: green;
+            font-size: 1.2em;
+        }
+
+        .suspicious {
+            color: red;
+            font-size: 1.2em;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+
+            nav ul li {
+                margin: 5px 0;
+            }
+
+            .page {
+                margin: 10px;
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>GuardLendify</h1>
+        <nav>
+            <ul>
+                <li><a href="#" onclick="showPage('home')">Home</a></li>
+                <li><a href="#" onclick="showPage('services')">Services</a></li>
+                <li><a href="#" onclick="showPage('verify')">Verify</a></li>
+                <li><a href="#" onclick="showPage('report')">Report</a></li>
+                <li><a href="#" onclick="showPage('about')">About Us</a></li>
+                <li><a href="#" onclick="showPage('contact')">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <h2>Welcome to GuardLendify</h2>
+        <p>Your trusted partner in ensuring safe and reliable digital lending. GuardLendify provides robust tools to verify the legitimacy of Digital Lending Apps (DLAs), detect fraudulent activities, and report suspicious apps.</p>
+    </div>
+
+    <!-- Services Page -->
+    <div id="services" class="page">
+        <h2>Our Services</h2>
+        <p>At GuardLendify, we offer a range of services aimed at securing the digital lending ecosystem:</p>
+        <ul>
+            <li>DLA Verification: Instantly verify if a Digital Lending App is registered and authorized by the relevant authorities.</li>
+            <li>Fraud Detection: Identify and report fraudulent DLAs based on user feedback and real-time data analysis.</li>
+            <li>Consumer Education: Educate users about safe digital lending practices and how to avoid scams.</li>
+        </ul>
+    </div>
+
+    <!-- Verification Page -->
+    <div id="verify" class="page">
+        <h2>Verify a DLA</h2>
+        <form onsubmit="verifyDLA(); return false;">
+            <label for="url">Enter DLA URL:</label>
+            <input type="text" id="url" required>
+            <button type="submit">Verify</button>
+        </form>
+        <div id="verification-result"></div>
+    </div>
+
+    <!-- Report Page -->
+    <div id="report" class="page">
+        <h2>Report Details</h2>
+        <div id="report-details"></div>
+    </div>
+
+    <!-- About Us Page -->
+    <div id="about" class="page">
+        <h2>About GuardLendify</h2>
+        <p>GuardLendify is dedicated to making digital lending safer by providing users with the tools they need to verify the legitimacy of Digital Lending Apps. Our mission is to protect consumers from fraudulent DLAs and build trust in the digital lending ecosystem through advanced verification mechanisms, real-time fraud detection, and user empowerment.</p>
+    </div>
+
+    <!-- Contact Us Page -->
+    <div id="contact" class="page">
+        <h2>Contact Us</h2>
+        <form>
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" required>
+            <label for="email">Your Email:</label>
+            <input type="email" id="email" required>
+            <label for="message">Your Message:</label>
+            <textarea id="message" rows="5" required></textarea>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <footer>
+        &copy; 2024 GuardLendify. All rights reserved.
+    </footer>
+
+    <script>
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        // List of authorized URLs
+        const authorizedDLAs = [
+            "lendingclub.com",
+            "prosper.com",
+            "upstart.com",
+            "sofi.com",
+            "avant.com",
+            "kiva.org",
+            "credible.com",
+            "fundingcircle.com",
+            "ondeck.com",
+            "streetshares.com",
+            "marble.com",
+            "netcredit.com",
+            "earnest.com",
+            "figure.com",
+            "lendio.com",
+            "bluevine.com",
+            "credibly.com",
+            "fundingsocieties.com",
+            "taulia.com",
+            "lendingtree.com",
+            "payoff.com",
+            "nerdwallet.com",
+            "ratesetter.com",
+            "clearbanc.com",
+            "lendinvest.com",
+            "lendkey.com"
+        ];
+
+        // Mock suspicious URLs and reasons
+        const suspiciousDLAs = {
+            "example.com": "Generic suspicious activity.",
+            "fake-loan-app.com": "Known fraudulent website."
+        };
+
+        function verifyDLA() {
+            const url = document.getElementById('url').value;
+            const resultDiv = document.getElementById('verification-result');
+            const reportDetailsDiv = document.getElementById('report-details');
+
+            resultDiv.innerHTML = "";
+            reportDetailsDiv.innerHTML = "";
+
+            const urlDomain = new URL(url).hostname.replace('www.', '');
+
+            if (authorizedDLAs.includes(urlDomain)) {
+                resultDiv.innerHTML = <span class="verified">✔ ${url} is authorized.</span>;
+                // Navigate to report page
+                setTimeout(() => {
+                    showPage('report');
+                    // Display the verification message
+                    reportDetailsDiv.innerHTML = <p>${url} is verified and authorized.</p>;
+                }, 500); // Delay to ensure result is visible before navigation
+            } else if (suspiciousDLAs[urlDomain]) {
+                resultDiv.innerHTML = <span class="suspicious">⚠ ${url} is not recognized. Please proceed with caution.</span>;
+                // Navigate to report page
+                setTimeout(() => {
+                    showPage('report');
+                    // Display the suspicion reason
+                    reportDetailsDiv.innerHTML = <p>Reason: ${suspiciousDLAs[urlDomain]}</p>;
+                }, 500); // Delay to ensure result is visible before navigation
+            } else {
+                resultDiv.innerHTML = <span class="suspicious">⚠ ${url} is not recognized.</span>;
+                // Navigate to report page
+                setTimeout(() => {
+                    showPage('report');
+                    // Display a generic suspicious message
+                    reportDetailsDiv.innerHTML = <p>Reason: The URL could not be verified and may be suspicious.</p>;
+                }, 500); // Delay to ensure result is visible before navigation
+            }
+        }
+    </script>
+</body>
+</html>
