@@ -1,6 +1,4 @@
-
-package package2;
-
+Main.java
 package package2;
 
 public class Main {
