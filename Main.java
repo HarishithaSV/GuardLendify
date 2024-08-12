@@ -19,9 +19,8 @@ public class Main {
     }
 }
 
-Market.java
-import package2.*;
-import java.util.HashMap;
+DLARegistry.java
+
 
 package package2;
 
